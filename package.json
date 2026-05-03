@@ -18,7 +18,6 @@
   "files": [
     "dist",
     "template",
-    ".claude/skills",
     "README.md",
     "LICENSE"
   ],

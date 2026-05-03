@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 import { promises as fs } from 'node:fs';
-import os from 'node:os';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import process from 'node:process';
-import { fileURLToPath } from 'node:url';
 
 import { input, select, checkbox } from '@inquirer/prompts';
 import { Command } from 'commander';
-import fse from 'fs-extra';
 import kleur from 'kleur';
 
 import { QUESTIONS, parseDomainEntities, type Answers } from './core/interview.js';
@@ -18,17 +16,8 @@ interface InitOptions {
   force?: boolean;
 }
 
-interface InstallSkillOptions {
-  target?: string;
-  force?: boolean;
-}
-
-const PKG_VERSION = '0.1.0';
-const SKILL_NAME = 'scaffold-saas';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const bundledSkillDir = (): string =>
-  path.resolve(here, '..', '.claude', 'skills', SKILL_NAME);
+const pkg = createRequire(import.meta.url)('../package.json') as { version: string };
+const PKG_VERSION = pkg.version;
 
 const exitWith = (message: string, code = 1): never => {
   process.stderr.write(`${kleur.red('✖')} ${message}\n`);
@@ -182,53 +171,6 @@ program
 
       const result = await scaffold(finalAnswers, { force: options.force });
       printNextSteps(result.targetDir);
-    } catch (err) {
-      if (err instanceof Error) exitWith(err.message);
-      exitWith(String(err));
-    }
-  });
-
-program
-  .command('install-skill')
-  .description(
-    'Copy the scaffold-saas Claude skill to ~/.claude/skills (or a project-local .claude/skills via --target).',
-  )
-  .option(
-    '--target <dir>',
-    'Install into <dir>/.claude/skills/ instead of the user-global ~/.claude/skills/. Use "." for the current project.',
-  )
-  .option('--force', 'Overwrite an existing scaffold-saas skill at the destination.')
-  .action(async (options: InstallSkillOptions) => {
-    try {
-      const source = bundledSkillDir();
-      if (!(await fse.pathExists(source))) {
-        exitWith(
-          `Bundled skill not found at ${source}. Reinstall scaffoldo or run "pnpm build" if you cloned the repo.`,
-        );
-      }
-
-      const baseDir = options.target ? path.resolve(options.target) : os.homedir();
-      const destParent = path.join(baseDir, '.claude', 'skills');
-      const destDir = path.join(destParent, SKILL_NAME);
-
-      const exists = await fse.pathExists(destDir);
-      if (exists && !options.force) {
-        exitWith(`Skill already installed at ${destDir}. Re-run with --force to overwrite.`);
-      }
-      if (exists) await fse.remove(destDir);
-
-      await fse.ensureDir(destParent);
-      await fse.copy(source, destDir, { overwrite: true });
-
-      const scope = options.target ? 'project-local' : 'user-global';
-      process.stdout.write(
-        `${kleur.green('✔')} Installed scaffold-saas skill (${scope}) at ${kleur.bold(destDir)}\n\n`,
-      );
-      process.stdout.write(
-        `Open Claude Code in ${options.target ? 'this project' : 'any project'} and type ${kleur.cyan(
-          '/scaffold-saas',
-        )} to invoke it.\n`,
-      );
     } catch (err) {
       if (err instanceof Error) exitWith(err.message);
       exitWith(String(err));

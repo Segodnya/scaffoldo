@@ -9,7 +9,7 @@ You are running inside the **scaffoldo** repo. The user wants a new SaaS project
 
 ## Single source of truth
 
-The canonical question schema lives in [`src/core/interview.ts`](../../../src/core/interview.ts). A human-readable mirror is in [`questions.md`](./questions.md). **Both files must stay in sync** — if you change one, change the other.
+The canonical question schema lives in [`src/core/interview.ts`](https://github.com/Segodnya/scaffoldo/blob/main/src/core/interview.ts) in the scaffoldo repo. A human-readable mirror is in [`questions.md`](./questions.md). **Both files must stay in sync** — if you change one, change the other.
 
 ## Phase 1 — Interview
 

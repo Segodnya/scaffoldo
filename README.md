@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/scaffoldo.svg?logo=npm&color=cb3837)](https://www.npmjs.com/package/scaffoldo)
 [![npm downloads](https://img.shields.io/npm/dm/scaffoldo.svg?logo=npm&color=cb3837)](https://www.npmjs.com/package/scaffoldo)
+[![skills.sh](https://skills.sh/b/Segodnya/scaffoldo)](https://skills.sh/Segodnya/scaffoldo)
 [![CI](https://github.com/Segodnya/scaffoldo/actions/workflows/ci.yml/badge.svg)](https://github.com/Segodnya/scaffoldo/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/scaffoldo.svg)](LICENSE)
 [![node](https://img.shields.io/node/v/scaffoldo.svg?logo=node.js&logoColor=white)](https://nodejs.org)
@@ -22,8 +23,7 @@ npx scaffoldo init
 npx scaffoldo init --answers-file answers.json
 
 # (Optional) Install the Claude skill so /scaffold-saas works in any project
-npx scaffoldo install-skill              # → ~/.claude/skills/scaffold-saas
-npx scaffoldo install-skill --target .   # → ./.claude/skills/scaffold-saas
+npx skills add Segodnya/scaffoldo -g
 ```
 
 ## What you get
@@ -58,20 +58,20 @@ docs/checklist.md        # the 15-feature launch checklist, scoped to your proje
 
 ### Installing the Claude skill
 
-The skill ships **inside** the npm tarball but Claude Code only discovers skills under `~/.claude/skills/` (user-global) or `<project>/.claude/skills/` (project-local). One command copies it where Claude expects:
+The skill lives in this repo at [`.claude/skills/scaffold-saas/`](.claude/skills/scaffold-saas) and is published via the open agent skills ecosystem at [skills.sh](https://skills.sh/Segodnya/scaffoldo). Install with the [`skills`](https://github.com/vercel-labs/skills) CLI:
 
 ```bash
+# Project-local (default) — installs into the current dir's .claude/skills/
+npx skills add Segodnya/scaffoldo
+
 # User-global — /scaffold-saas works in any project on this machine
-npx scaffoldo install-skill
+npx skills add Segodnya/scaffoldo -g
 
-# Project-local — /scaffold-saas works only in the current directory
-npx scaffoldo install-skill --target .
-
-# Re-install over an existing copy
-npx scaffoldo install-skill --force
+# Non-interactive (CI-friendly) — install globally into Claude Code, skip prompts
+npx skills add Segodnya/scaffoldo -a claude-code -g -y
 ```
 
-You only need to do this once per machine (or once per project if you prefer the project-local install). After that, open Claude Code and type `/scaffold-saas`.
+You only need to do this once per machine (or once per project for the project-local install). After that, open Claude Code and type `/scaffold-saas`.
 
 ## The 15-item launch list
 

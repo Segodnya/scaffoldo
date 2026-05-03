@@ -1,6 +1,6 @@
 # Interview questions
 
-Human-readable mirror of [`src/core/interview.ts`](../../../src/core/interview.ts). Keep both files in sync.
+Human-readable mirror of [`src/core/interview.ts`](https://github.com/Segodnya/scaffoldo/blob/main/src/core/interview.ts) in the scaffoldo repo. Keep both files in sync.
 
 | # | id | type | required | notes |
 |---|----|------|----------|-------|
