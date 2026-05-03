@@ -1,6 +1,6 @@
 {
   "name": "scaffoldo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Next.js 15 SaaS starter CLI — scaffold a production Turborepo with Clerk auth, Supabase Postgres, Stripe payments, Resend email, PostHog analytics, and Sentry from one prompt.",
   "license": "MIT",
   "type": "module",
