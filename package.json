@@ -29,7 +29,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint \"src/**/*.ts\"",
     "format": "prettier --write \"src/**/*.ts\"",
     "smoke": "node ./scripts/smoke.mjs",
     "prepublishOnly": "pnpm run build"
@@ -102,12 +102,14 @@
     "kleur": "4.1.5"
   },
   "devDependencies": {
+    "@eslint/js": "9.17.0",
     "@types/fs-extra": "11.0.4",
     "@types/node": "22.10.5",
     "eslint": "9.17.0",
     "prettier": "3.4.2",
     "tsup": "8.3.5",
-    "typescript": "5.7.2"
+    "typescript": "5.7.2",
+    "typescript-eslint": "8.59.1"
   },
   "publishConfig": {
     "access": "public"

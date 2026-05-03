@@ -1,5 +1,11 @@
 # scaffoldo — Next.js 15 SaaS starter CLI
 
+[![npm version](https://img.shields.io/npm/v/scaffoldo.svg?logo=npm&color=cb3837)](https://www.npmjs.com/package/scaffoldo)
+[![npm downloads](https://img.shields.io/npm/dm/scaffoldo.svg?logo=npm&color=cb3837)](https://www.npmjs.com/package/scaffoldo)
+[![CI](https://github.com/segodnya/scaffoldo/actions/workflows/ci.yml/badge.svg)](https://github.com/segodnya/scaffoldo/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/scaffoldo.svg)](LICENSE)
+[![node](https://img.shields.io/node/v/scaffoldo.svg?logo=node.js&logoColor=white)](https://nodejs.org)
+
 > One-prompt SaaS scaffolder. Generate a production-ready **Next.js 15 + Clerk + Supabase + Stripe + Resend + PostHog + Sentry** Turborepo from an interview — deployable in minutes.
 
 `scaffoldo` is an open-source SaaS boilerplate generator for indie hackers and small teams. It turns the question "what do I actually need to launch a SaaS?" into a single command: it interviews you about your idea, then bootstraps a production-grade Next.js 15 monorepo (App Router, TypeScript, Tailwind v4, shadcn/ui, Prisma, Turborepo, pnpm) with auth, payments, email, analytics, and observability already wired together.
