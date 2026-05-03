@@ -1,0 +1,116 @@
+{
+  "name": "scaffoldo",
+  "version": "0.1.0",
+  "description": "Next.js 15 SaaS starter CLI — scaffold a production Turborepo with Clerk auth, Supabase Postgres, Stripe payments, Resend email, PostHog analytics, and Sentry from one prompt.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "scaffoldo": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "template",
+    ".claude",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "smoke": "node ./scripts/smoke.mjs",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "saas",
+    "saas-starter",
+    "saas-template",
+    "saas-boilerplate",
+    "saas-kit",
+    "saas-scaffold",
+    "scaffold",
+    "scaffolder",
+    "starter",
+    "starter-kit",
+    "boilerplate",
+    "template",
+    "nextjs",
+    "next",
+    "next15",
+    "next-js",
+    "nextjs-starter",
+    "nextjs-boilerplate",
+    "nextjs-saas",
+    "app-router",
+    "react",
+    "typescript",
+    "monorepo",
+    "turborepo",
+    "pnpm",
+    "tailwind",
+    "tailwindcss",
+    "shadcn",
+    "shadcn-ui",
+    "prisma",
+    "clerk",
+    "clerk-auth",
+    "supabase",
+    "stripe",
+    "stripe-checkout",
+    "resend",
+    "posthog",
+    "sentry",
+    "upstash",
+    "pinecone",
+    "claude",
+    "claude-code",
+    "claude-skill",
+    "ai-scaffold",
+    "cli",
+    "generator",
+    "create-app",
+    "bootstrap",
+    "indie-hacker",
+    "micro-saas"
+  ],
+  "author": "Kirill Kurentsov",
+  "homepage": "https://github.com/segodnya/scaffoldo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/segodnya/scaffoldo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/segodnya/scaffoldo/issues"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.2.1",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "kleur": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.5",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

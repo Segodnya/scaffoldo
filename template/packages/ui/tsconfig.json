@@ -1,0 +1,4 @@
+{
+  "extends": "@__PROJECT_SLUG__/config/tsconfig/next.json",
+  "include": ["src/**/*"]
+}

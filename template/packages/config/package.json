@@ -1,0 +1,13 @@
+{
+  "name": "@__PROJECT_SLUG__/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./tsconfig/next.json": "./tsconfig/next.json",
+    "./tailwind": "./tailwind.preset.mjs",
+    "./eslint": "./eslint.config.mjs"
+  },
+  "files": ["tsconfig", "tailwind.preset.mjs", "eslint.config.mjs"]
+}

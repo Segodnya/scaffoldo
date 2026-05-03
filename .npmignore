@@ -1,0 +1,15 @@
+# An explicit "files" allowlist in package.json supersedes this, but we keep
+# .npmignore as a belt-and-suspenders guard against accidental publishing.
+src
+docs
+.github
+scripts
+node_modules
+*.log
+*.tgz
+.DS_Store
+.env*
+tsconfig.json
+tsup.config.ts
+.gitignore
+.npmignore

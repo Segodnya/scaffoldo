@@ -1,0 +1,30 @@
+{
+  "marketing": {
+    "cta": "Get started",
+    "learnMore": "Learn more"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "empty": "Nothing here yet."
+  },
+  "settings": {
+    "title": "Settings",
+    "billing": "Billing",
+    "deleteAccount": "Delete account",
+    "deleteAccountConfirm": "This permanently deletes your account and data."
+  },
+  "onboarding": {
+    "title": "Welcome",
+    "subtitle": "A couple of quick questions and you're in.",
+    "finish": "Finish"
+  },
+  "errors": {
+    "generic": "Something went wrong.",
+    "tryAgain": "Try again"
+  }
+}

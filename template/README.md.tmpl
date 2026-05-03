@@ -1,0 +1,59 @@
+# __PROJECT_NAME__
+
+> __PITCH__
+
+For: __AUDIENCE__
+
+## What this is
+
+**The problem.** __PROBLEM__
+
+**The solution.** __SOLUTION__
+
+## Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Auth:** Clerk
+- **DB:** Supabase Postgres + Prisma
+- **Payments:** Stripe
+- **Email:** Resend
+- **Cache + ratelimit:** Upstash Redis
+- **Vector search:** Pinecone
+- **Analytics:** PostHog
+- **Errors:** Sentry
+- **i18n:** next-intl
+- **UI:** Tailwind v4 + shadcn/ui
+- **Monorepo:** Turborepo + pnpm
+
+## Getting started
+
+```bash
+pnpm install
+cp .env.example .env.local              # then paste real keys
+pnpm db:push                            # apply Prisma schema
+pnpm dev                                # http://localhost:3000
+```
+
+See [`docs/setup.md`](./docs/setup.md) for the per-service signup walkthrough and [`docs/checklist.md`](./docs/checklist.md) for the launch checklist.
+
+## Layout
+
+```
+apps/web                # Next.js app
+packages/auth           # Clerk helpers
+packages/db             # Prisma + Supabase
+packages/payments       # Stripe
+packages/email          # Resend
+packages/analytics      # PostHog
+packages/observability  # Sentry + pino
+packages/cache          # Upstash + ratelimit
+packages/ai             # Pinecone
+packages/i18n           # next-intl
+packages/ui             # shadcn/ui
+packages/core           # shared types + errors
+packages/config         # eslint / tsconfig / tailwind presets
+```
+
+## License
+
+Copyright © __YEAR__ __PROJECT_NAME__. All rights reserved.

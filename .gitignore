@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+*.log
+.env
+.env.local
+*.tgz
+coverage
+.turbo
+.next
+
+# editors
+.vscode
+.idea
