@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.0](https://github.com/Segodnya/scaffoldo/compare/v0.1.3...v0.2.0) (2026-05-03)
+
+
+### Features
+
+* add scaffold-saas to skills.sh marketplace ([7975933](https://github.com/Segodnya/scaffoldo/commit/79759337480a6f34604fea415b82cbd8df2c787e))
+
+
+### Documentation
+
+* add contributing.md ([68c88f6](https://github.com/Segodnya/scaffoldo/commit/68c88f629b98dab9b7bf6a9d71d55054f65ba648))
+
+
+### Refactors
+
+* reduce coupling ([e2ef3c3](https://github.com/Segodnya/scaffoldo/commit/e2ef3c33aee693c9a7990c85cc8c8424768292a1))
+
 ## [0.1.3](https://github.com/Segodnya/scaffoldo/compare/v0.1.2...v0.1.3) (2026-05-03)
 
 
