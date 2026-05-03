@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/scaffoldo.svg?logo=npm&color=cb3837)](https://www.npmjs.com/package/scaffoldo)
 [![npm downloads](https://img.shields.io/npm/dm/scaffoldo.svg?logo=npm&color=cb3837)](https://www.npmjs.com/package/scaffoldo)
-[![CI](https://github.com/segodnya/scaffoldo/actions/workflows/ci.yml/badge.svg)](https://github.com/segodnya/scaffoldo/actions/workflows/ci.yml)
+[![CI](https://github.com/Segodnya/scaffoldo/actions/workflows/ci.yml/badge.svg)](https://github.com/Segodnya/scaffoldo/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/scaffoldo.svg)](LICENSE)
 [![node](https://img.shields.io/node/v/scaffoldo.svg?logo=node.js&logoColor=white)](https://nodejs.org)
 

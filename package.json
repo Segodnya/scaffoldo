@@ -87,13 +87,13 @@
     "micro-saas"
   ],
   "author": "Kirill Kurentsov",
-  "homepage": "https://github.com/segodnya/scaffoldo",
+  "homepage": "https://github.com/Segodnya/scaffoldo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/segodnya/scaffoldo.git"
+    "url": "git+https://github.com/Segodnya/scaffoldo.git"
   },
   "bugs": {
-    "url": "https://github.com/segodnya/scaffoldo/issues"
+    "url": "https://github.com/Segodnya/scaffoldo/issues"
   },
   "dependencies": {
     "@inquirer/prompts": "7.2.1",
