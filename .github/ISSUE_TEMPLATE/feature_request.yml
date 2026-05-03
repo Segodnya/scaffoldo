@@ -1,0 +1,79 @@
+name: Feature request
+description: Propose a new capability, DX improvement, or template/plugin extension.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement. Please fill in every section — concrete problems, concrete proposals, and observable acceptance criteria are what move an idea from "interesting" to "ready to build."
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is the current pain? Include concrete evidence — file paths, commit SHAs, or user-visible behavior. Why does it matter?
+      placeholder: |
+        Today `scaffoldo init` does X. The pain is …
+        Evidence: `src/core/scaffold.ts:42`, commit abc1234.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: A concrete approach. Bullet the design choices. Mention prior art if relevant (Copier, T3, Nx, Backstage, Hygen, …).
+      placeholder: |
+        - Add `--flag` to …
+        - Refactor `src/core/foo.ts` to …
+        - Prior art: Copier `update`, Nx generators.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Checkbox list. Each item must be observable from the outside (a command, a test, a file). At least three.
+      value: |
+        - [ ]
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the project does this touch? Pick the closest single area; reviewers may add more labels.
+      options:
+        - "area:cli (the scaffoldo command surface)"
+        - "area:template (files under template/)"
+        - "area:plugins (extension / plugin architecture)"
+        - "area:docs (user-facing documentation)"
+        - "area:quality (tests, CI, error UX, observability)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Internal files (`src/...`, `docs/...`) and external prior art.
+      placeholder: |
+        Internal: src/core/scaffold.ts, docs/playbook.md
+        External: https://copier.readthedocs.io/en/stable/configuring/
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checks
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+        - label: This is a single, focused change (one PR's worth). Larger ideas have been split.
+          required: true

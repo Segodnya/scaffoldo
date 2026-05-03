@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/Segodnya/scaffoldo/blob/main/CONTRIBUTING.md
+    about: Conventions, commit format, and how to set up the repo locally.
+  - name: Architecture decisions
+    url: https://github.com/Segodnya/scaffoldo/tree/main/docs/adr
+    about: Read the ADRs before proposing changes that touch core defaults (auth, db, payments, etc.).

@@ -1,0 +1,114 @@
+name: Bug report
+description: Something in the CLI or generated template is broken.
+title: "fix: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The faster you give us a minimal reproduction and your environment, the faster we can fix it.
+
+  - type: input
+    id: scaffoldo-version
+    attributes:
+      label: Scaffoldo version
+      description: Output of `scaffoldo --version` or the version in your `package.json` if installed locally.
+      placeholder: "0.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version
+      description: Output of `node --version`.
+      placeholder: "v20.11.0"
+    validations:
+      required: true
+
+  - type: input
+    id: pnpm-version
+    attributes:
+      label: pnpm version
+      description: Output of `pnpm --version`. Leave blank if you used a different package manager.
+      placeholder: "9.0.0"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - WSL
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: A minimal sequence of commands. If your input requires an interview, paste your `--answers-file` contents.
+      placeholder: |
+        1. `pnpm dlx scaffoldo init my-app`
+        2. Pick option X at prompt Y
+        3. `cd my-app && pnpm dev`
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: "The dev server should start on port 3000."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the full error message and exit code. Stack trace if available.
+      placeholder: "Error: EADDRINUSE …"
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / output
+      description: Any additional CLI output, generated files that look wrong, or screenshots.
+      render: shell
+    validations:
+      required: false
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did the bug occur?
+      options:
+        - "scaffoldo CLI (interview / scaffold pipeline)"
+        - "Generated template (apps/web)"
+        - "Generated template (a package under template/packages/*)"
+        - "Documentation"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checks
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+        - label: I am on the latest released version of scaffoldo (or have noted the version above).
+          required: true
+        - label: I have included a minimal, complete reproduction.
+          required: true
