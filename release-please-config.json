@@ -5,6 +5,7 @@
       "release-type": "node",
       "package-name": "scaffoldo",
       "include-v-in-tag": true,
+      "include-component-in-tag": false,
       "changelog-path": "CHANGELOG.md",
       "draft": false,
       "prerelease": false,
