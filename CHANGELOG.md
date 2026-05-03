@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/Segodnya/scaffoldo/compare/v0.1.2...v0.1.3) (2026-05-03)
+
+
+### Bug Fixes
+
+* match canonical repo URL casing in package.json ([2baf052](https://github.com/Segodnya/scaffoldo/commit/2baf0526392145d8b62b3d3bf2d1aaea21ff7c71))
+
 ## [0.1.2](https://github.com/Segodnya/scaffoldo/compare/v0.1.1...v0.1.2) (2026-05-03)
 
 
