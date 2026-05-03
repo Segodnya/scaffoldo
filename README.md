@@ -109,7 +109,60 @@ pnpm lint
 pnpm smoke       # scaffolds into a tmp dir and verifies the output
 ```
 
-Releases publish to npm on `v*.*.*` git tag — see [`.github/workflows/release.yml`](.github/workflows/release.yml).
+## Releases
+
+Releases are automated via [release-please](https://github.com/googleapis/release-please) and [Conventional Commits](https://www.conventionalcommits.org/).
+
+**Flow:**
+
+1. Merge PRs into `main` with [Conventional Commit](#commit-message-convention) titles (`feat:`, `fix:`, …).
+2. release-please watches `main` and keeps an open **Release PR** that previews the next version + `CHANGELOG.md` diff.
+3. Merging the Release PR creates a `vX.Y.Z` git tag.
+4. The tag triggers [`.github/workflows/release.yml`](.github/workflows/release.yml) which builds, smoke-tests, and publishes to npm with provenance via [Trusted Publishing](https://docs.npmjs.com/trusted-publishers).
+
+You don't bump versions by hand. Don't run `npm version`. Don't push tags manually.
+
+### Commit message convention
+
+The repo follows [Conventional Commits 1.0](https://www.conventionalcommits.org/). The commit *type* decides the version bump:
+
+| Type | Bump | Use for |
+|---|---|---|
+| `feat:` | **minor** (0.1.0 → 0.2.0) | New user-facing capability |
+| `fix:` | **patch** (0.1.0 → 0.1.1) | Bug fix |
+| `perf:` | **patch** | Performance improvement |
+| `feat!:` / `BREAKING CHANGE:` | **major** (0.x → 1.0.0) | Backwards-incompatible change |
+| `docs:` | none | README / docs / comments |
+| `refactor:` | none | Internal restructure, no behavior change |
+| `chore:` / `build:` / `ci:` / `test:` / `style:` | none | Tooling, deps, formatting |
+| `revert:` | inferred | Reverting a previous commit |
+
+**Format:**
+
+```
+<type>(<optional-scope>): <short summary>
+
+<optional body explaining *why*, not *what*>
+
+<optional footers, e.g. BREAKING CHANGE: …>
+```
+
+**Examples:**
+
+```
+feat(cli): add --dry-run flag to skip writes
+fix(template): correct Stripe webhook signature header name
+docs: clarify Trusted Publishing setup in release section
+refactor(skill): extract questions list into JSON
+feat!: rename `init` command to `create`
+
+BREAKING CHANGE: `scaffoldo init` is now `scaffoldo create`. Existing
+scripts must be updated.
+```
+
+**Scopes** are optional but useful: `cli`, `template`, `skill`, `docs`, `ci`. Keep summaries imperative ("add", "fix", "remove") and under ~70 chars.
+
+**Pre-1.0 note:** while the package is in `0.x`, breaking changes (`feat!:` / `BREAKING CHANGE:`) bump the **minor** instead of the major — the SemVer "0.x is unstable" convention. `feat:` still bumps minor, `fix:` still bumps patch. The first `1.0.0` is cut deliberately when the API is declared stable.
 
 ## License
 
