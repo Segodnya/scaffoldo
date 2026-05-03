@@ -3,9 +3,33 @@
  * uses, for tests and embedders. The CLI itself lives in src/cli.ts.
  */
 
-export { scaffold } from './core/scaffold.js';
-export type { ScaffoldOptions, ScaffoldResult } from './core/scaffold.js';
-export { QUESTIONS, parseDomainEntities } from './core/interview.js';
-export type { Answers, Question, QuestionType, AnswerId } from './core/interview.js';
-export { buildPlaceholderMap, substitute, PLACEHOLDER_KEYS } from './core/placeholders.js';
+export { scaffold, STAGES } from './core/scaffold.js';
+export type {
+  ScaffoldOptions,
+  ScaffoldResult,
+  Stage,
+  StageContext,
+  StageResult,
+} from './core/scaffold.types.js';
+
+export {
+  QUESTIONS,
+  findQuestion,
+  normalizeAnswers,
+  parseAnswers,
+  parseDomainEntities,
+  validateField,
+} from './core/interview.js';
+export type { AnswerId, Answers, Question, QuestionType } from './core/interview.types.js';
+
+export {
+  PLACEHOLDER_KEYS,
+  buildPlaceholderMap,
+  placeholderStage,
+  substitute,
+} from './core/placeholders.js';
 export type { PlaceholderKey } from './core/placeholders.js';
+
+export { landingStage, renderLanding } from './core/landing.js';
+export { domainEntitiesStage, renderEntityPage, renderModel } from './core/domain.js';
+export { projectChecklistStage, renderChecklist } from './core/checklist.js';

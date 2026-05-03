@@ -2,7 +2,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import fse from 'fs-extra';
 
-import type { Answers } from './interview.js';
+import type { Answers } from './interview.types.js';
+import type { Stage, StageContext, StageResult } from './scaffold.types.js';
 
 const CHECKLIST_PATH = 'docs/checklist.md';
 
@@ -48,10 +49,8 @@ const renderItem = (i: number, item: ChecklistItem): string => {
   return `${i}. ${checkbox} **${item.title}** — ${files}${note}`;
 };
 
-export const renderProjectChecklist = async (targetDir: string, answers: Answers): Promise<void> => {
-  const file = path.join(targetDir, CHECKLIST_PATH);
-  if (!(await fse.pathExists(file))) return;
-
+/** Pure render of the project-tailored launch checklist. */
+export const renderChecklist = (answers: Answers): string => {
   const lines = [
     `# ${answers.projectName} — launch checklist`,
     '',
@@ -60,5 +59,15 @@ export const renderProjectChecklist = async (targetDir: string, answers: Answers
     ...buildItems(answers).map((item, idx) => renderItem(idx + 1, item)),
     '',
   ];
-  await fs.writeFile(file, lines.join('\n'));
+  return lines.join('\n');
+};
+
+export const projectChecklistStage: Stage = {
+  name: 'project-checklist',
+  apply: async (ctx: StageContext): Promise<StageResult> => {
+    const file = path.join(ctx.targetDir, CHECKLIST_PATH);
+    if (!(await fse.pathExists(file))) return { filesWritten: 0 };
+    await fs.writeFile(file, renderChecklist(ctx.answers));
+    return { filesWritten: 1 };
+  },
 };

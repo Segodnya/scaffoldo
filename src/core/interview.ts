@@ -3,45 +3,9 @@
  * this list in the same order with the same ids — it is the single source of
  * truth that keeps both surfaces from drifting.
  */
+import path from 'node:path';
 
-export type QuestionType = 'text' | 'select' | 'multiselect' | 'confirm';
-
-export interface Question<TId extends string = string> {
-  id: TId;
-  prompt: string;
-  help?: string;
-  type: QuestionType;
-  default?: string | string[] | boolean;
-  choices?: ReadonlyArray<{ value: string; label: string; description?: string }>;
-  validate?: (value: unknown) => true | string;
-  required?: boolean;
-}
-
-export type AnswerId =
-  | 'projectName'
-  | 'projectSlug'
-  | 'targetDir'
-  | 'oneLinePitch'
-  | 'targetAudience'
-  | 'coreProblem'
-  | 'coreSolution'
-  | 'monetization'
-  | 'domainEntities'
-  | 'optionalModules';
-
-export interface Answers {
-  projectName: string;
-  projectSlug: string;
-  targetDir: string;
-  oneLinePitch: string;
-  targetAudience: string;
-  coreProblem: string;
-  coreSolution: string;
-  monetization: 'subscription' | 'one-time' | 'freemium' | 'usage-based';
-  /** 1..5 PascalCase domain nouns, e.g. ["Lead", "Pipeline", "Note"]. */
-  domainEntities: string[];
-  optionalModules: Array<'pinecone' | 'upstash' | 'resend'>;
-}
+import type { AnswerId, Answers, Question } from './interview.types.js';
 
 const SLUG_RE = /^[a-z][a-z0-9-]*[a-z0-9]$/;
 const PASCAL_RE = /^[A-Z][A-Za-z0-9]*$/;
@@ -151,3 +115,46 @@ export const parseDomainEntities = (raw: string): string[] =>
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean);
+
+/** Look up a question by id; throws if the schema drifts. */
+export const findQuestion = (id: AnswerId): Question<AnswerId> => {
+  const q = QUESTIONS.find((it) => it.id === id);
+  if (!q) throw new Error(`Question not found: ${id}`);
+  return q;
+};
+
+/**
+ * Single source of truth for "is this value acceptable for this question?"
+ * — used by both the interactive prompt validators and `parseAnswers`, so
+ * both surfaces accept the exact same inputs.
+ */
+export const validateField = (q: Question<AnswerId>, value: unknown): true | string => {
+  if (q.required && (value === undefined || value === null || value === '')) {
+    return 'Required.';
+  }
+  if (q.validate) return q.validate(value);
+  return true;
+};
+
+/**
+ * Validate a raw answers payload against the interview schema. Pure: no
+ * path resolution, no side effects. Use `normalizeAnswers` separately to
+ * absolutize `targetDir`.
+ */
+export const parseAnswers = (input: unknown): Answers => {
+  if (typeof input !== 'object' || input === null) {
+    throw new Error('Answers payload must be an object.');
+  }
+  const record = input as Record<string, unknown>;
+  for (const q of QUESTIONS) {
+    const result = validateField(q, record[q.id]);
+    if (result !== true) throw new Error(`answers.${q.id}: ${result}`);
+  }
+  return input as Answers;
+};
+
+/** Resolve `targetDir` against the current working directory. */
+export const normalizeAnswers = (answers: Answers): Answers => ({
+  ...answers,
+  targetDir: path.resolve(answers.targetDir),
+});

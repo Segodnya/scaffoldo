@@ -3,18 +3,18 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fse from 'fs-extra';
 
-import type { Answers } from './interview.js';
-import { buildPlaceholderMap, substitute } from './placeholders.js';
-import { stubDomainEntities } from './domain.js';
-import { rewriteLanding } from './landing.js';
-import { renderProjectChecklist } from './checklist.js';
-
-export interface ScaffoldOptions {
-  /** Override the bundled `template/` directory. Used by tests. */
-  templateDir?: string;
-  /** If true, scaffold even when targetDir is non-empty (for tests only). */
-  force?: boolean;
-}
+import type { Answers } from './interview.types.js';
+import type {
+  ScaffoldOptions,
+  ScaffoldResult,
+  Stage,
+  StageContext,
+  StageResult,
+} from './scaffold.types.js';
+import { buildPlaceholderMap, placeholderStage } from './placeholders.js';
+import { domainEntitiesStage } from './domain.js';
+import { landingStage } from './landing.js';
+import { projectChecklistStage } from './checklist.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -23,24 +23,6 @@ const here = path.dirname(fileURLToPath(import.meta.url));
  * so `../template` resolves to the package root's `template/`.
  */
 const defaultTemplateDir = (): string => path.resolve(here, '..', 'template');
-
-/** Files we never substitute placeholders in (binary or noisy formats). */
-const BINARY_EXT = new Set([
-  '.png',
-  '.jpg',
-  '.jpeg',
-  '.gif',
-  '.webp',
-  '.ico',
-  '.woff',
-  '.woff2',
-  '.ttf',
-  '.otf',
-  '.zip',
-  '.pdf',
-]);
-
-const isBinary = (file: string): boolean => BINARY_EXT.has(path.extname(file).toLowerCase());
 
 const ensureEmpty = async (dir: string, force: boolean): Promise<void> => {
   try {
@@ -57,59 +39,53 @@ const ensureEmpty = async (dir: string, force: boolean): Promise<void> => {
   }
 };
 
-const walk = async function* (root: string): AsyncGenerator<string> {
-  const stack: string[] = [root];
-  while (stack.length > 0) {
-    const dir = stack.pop()!;
-    const entries = await fs.readdir(dir, { withFileTypes: true });
-    for (const entry of entries) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        stack.push(full);
-      } else if (entry.isFile()) {
-        yield full;
-      }
-    }
-  }
+/** Renames `README.md.tmpl` to `README.md` so placeholder substitution can run on the template body without TypeScript/Markdown tooling tripping over the raw tokens. */
+const renameReadmeStage: Stage = {
+  name: 'rename-readme',
+  apply: async (ctx: StageContext): Promise<StageResult> => {
+    const tmpl = path.join(ctx.targetDir, 'README.md.tmpl');
+    if (!(await fse.pathExists(tmpl))) return { filesWritten: 0 };
+    await fse.move(tmpl, path.join(ctx.targetDir, 'README.md'), { overwrite: true });
+    return { filesWritten: 1 };
+  },
 };
 
-export interface ScaffoldResult {
-  targetDir: string;
-  filesWritten: number;
-}
+/**
+ * Pipeline of post-copy transformations. Order matters: placeholder
+ * substitution must run before any stage that depends on resolved file paths,
+ * and the README rename happens after substitution so the body is rewritten
+ * while still under its `.tmpl` name.
+ */
+export const STAGES: readonly Stage[] = [
+  placeholderStage,
+  renameReadmeStage,
+  domainEntitiesStage,
+  landingStage,
+  projectChecklistStage,
+];
 
 export const scaffold = async (
   answers: Answers,
   options: ScaffoldOptions = {},
 ): Promise<ScaffoldResult> => {
-  const templateDir = options.templateDir ?? defaultTemplateDir();
+  const templateDir = options.templateDir || defaultTemplateDir();
   const targetDir = path.resolve(answers.targetDir);
 
-  await ensureEmpty(targetDir, options.force ?? false);
+  await ensureEmpty(targetDir, options.force || false);
   await fse.copy(templateDir, targetDir, { overwrite: true, errorOnExist: false });
 
-  const map = buildPlaceholderMap(answers);
+  const ctx: StageContext = {
+    answers,
+    targetDir,
+    placeholderMap: buildPlaceholderMap(answers),
+  };
+
+  const stages = options.stages || STAGES;
   let filesWritten = 0;
-
-  for await (const file of walk(targetDir)) {
-    if (isBinary(file)) continue;
-    const original = await fs.readFile(file, 'utf8');
-    const rewritten = substitute(original, map);
-    if (rewritten !== original) {
-      await fs.writeFile(file, rewritten);
-      filesWritten++;
-    }
+  for (const stage of stages) {
+    const result = await stage.apply(ctx);
+    filesWritten += result.filesWritten;
   }
-
-  // Rename README.md.tmpl → README.md after substitution.
-  const tmplReadme = path.join(targetDir, 'README.md.tmpl');
-  if (await fse.pathExists(tmplReadme)) {
-    await fse.move(tmplReadme, path.join(targetDir, 'README.md'), { overwrite: true });
-  }
-
-  await stubDomainEntities(targetDir, answers.domainEntities);
-  await rewriteLanding(targetDir, answers);
-  await renderProjectChecklist(targetDir, answers);
 
   return { targetDir, filesWritten };
 };
