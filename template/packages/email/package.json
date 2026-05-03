@@ -8,13 +8,13 @@
   "exports": { ".": "./src/index.ts" },
   "scripts": { "lint": "eslint src", "typecheck": "tsc --noEmit" },
   "dependencies": {
-    "@react-email/components": "^0.0.32",
-    "react": "^19.0.0",
-    "resend": "^4.0.1"
+    "@react-email/components": "0.0.32",
+    "react": "19.0.0",
+    "resend": "4.0.1"
   },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "@types/react": "^19.0.2",
-    "typescript": "^5.7.2"
+    "@types/react": "19.0.2",
+    "typescript": "5.7.2"
   }
 }

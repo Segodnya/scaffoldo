@@ -8,11 +8,11 @@
   "exports": { ".": "./src/index.ts" },
   "scripts": { "lint": "eslint src", "typecheck": "tsc --noEmit" },
   "dependencies": {
-    "@sentry/nextjs": "^8.47.0",
-    "pino": "^9.6.0"
+    "@sentry/nextjs": "8.47.0",
+    "pino": "9.6.0"
   },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "5.7.2"
   }
 }

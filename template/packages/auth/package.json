@@ -10,10 +10,10 @@
   "dependencies": {
     "@__PROJECT_SLUG__/core": "workspace:*",
     "@__PROJECT_SLUG__/db": "workspace:*",
-    "@clerk/nextjs": "^6.9.0"
+    "@clerk/nextjs": "6.9.0"
   },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "5.7.2"
   }
 }

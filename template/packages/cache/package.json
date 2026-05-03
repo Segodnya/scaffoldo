@@ -9,11 +9,11 @@
   "scripts": { "lint": "eslint src", "typecheck": "tsc --noEmit" },
   "dependencies": {
     "@__PROJECT_SLUG__/core": "workspace:*",
-    "@upstash/ratelimit": "^2.0.5",
-    "@upstash/redis": "^1.34.3"
+    "@upstash/ratelimit": "2.0.5",
+    "@upstash/redis": "1.34.3"
   },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "5.7.2"
   }
 }

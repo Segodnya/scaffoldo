@@ -9,10 +9,10 @@
   "scripts": { "lint": "eslint src", "typecheck": "tsc --noEmit" },
   "dependencies": {
     "@__PROJECT_SLUG__/core": "workspace:*",
-    "stripe": "^17.5.0"
+    "stripe": "17.5.0"
   },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "5.7.2"
   }
 }

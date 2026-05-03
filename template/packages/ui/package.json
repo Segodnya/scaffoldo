@@ -8,15 +8,15 @@
   "exports": { ".": "./src/index.ts" },
   "scripts": { "lint": "eslint src", "typecheck": "tsc --noEmit" },
   "dependencies": {
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^2.6.0"
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "tailwind-merge": "2.6.0"
   },
-  "peerDependencies": { "react": "^19.0.0" },
+  "peerDependencies": { "react": "19.0.0" },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "@types/react": "^19.0.2",
-    "react": "^19.0.0",
-    "typescript": "^5.7.2"
+    "@types/react": "19.0.2",
+    "react": "19.0.0",
+    "typescript": "5.7.2"
   }
 }

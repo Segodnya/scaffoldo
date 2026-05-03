@@ -7,9 +7,9 @@
   "types": "./src/index.ts",
   "exports": { ".": "./src/index.ts" },
   "scripts": { "lint": "eslint src", "typecheck": "tsc --noEmit" },
-  "dependencies": { "next-intl": "^3.26.3" },
+  "dependencies": { "next-intl": "3.26.3" },
   "devDependencies": {
     "@__PROJECT_SLUG__/config": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "5.7.2"
   }
 }
