@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/Segodnya/scaffoldo/compare/v0.2.0...v0.2.1) (2026-05-03)
+
+
+### Documentation
+
+* add gh templates ([b173f5e](https://github.com/Segodnya/scaffoldo/commit/b173f5e7f6ce5d651038f818ce279a223e5b2628))
+
 ## [0.2.0](https://github.com/Segodnya/scaffoldo/compare/v0.1.3...v0.2.0) (2026-05-03)
 
 
