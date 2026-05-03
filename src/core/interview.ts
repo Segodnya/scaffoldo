@@ -120,8 +120,12 @@ export const QUESTIONS: ReadonlyArray<Question<AnswerId>> = [
     type: 'text',
     required: true,
     validate: (v) => {
-      if (typeof v !== 'string') return 'Comma-separated list of PascalCase nouns.';
-      const parts = v.split(',').map((s) => s.trim()).filter(Boolean);
+      const parts = Array.isArray(v)
+        ? v.map((s) => String(s).trim()).filter(Boolean)
+        : typeof v === 'string'
+          ? v.split(',').map((s) => s.trim()).filter(Boolean)
+          : null;
+      if (!parts) return 'Comma-separated list of PascalCase nouns.';
       if (parts.length < 1 || parts.length > 5) return 'Provide between 1 and 5 entities.';
       const bad = parts.find((p) => !PASCAL_RE.test(p));
       return bad ? `"${bad}" is not PascalCase.` : true;
