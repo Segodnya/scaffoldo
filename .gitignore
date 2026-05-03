@@ -12,3 +12,6 @@ coverage
 # editors
 .vscode
 .idea
+
+# claude code (local-only)
+*.local.json
